@@ -1,138 +1,186 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Shop — Пример</title>
-  <style>
+<meta charset="UTF-8">
+<title>Game Store Mockup</title>
+<style>
     body {
-      background: #111;
-      color: #eee;
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
+        margin: 0;
+        background: #0d0d0f;
+        font-family: Arial, sans-serif;
+        color: white;
     }
-    .cards {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      padding: 20px;
-      justify-content: center;
+
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+        padding: 30px;
     }
+
     .card {
-      width: 200px;
-      background: #222;
-      border-radius: 8px;
-      overflow: hidden;
-      cursor: pointer;
-      transition: transform 0.2s, box-shadow 0.2s;
-      position: relative;
-    }
-    .card img {
-      width: 100%;
-      display: block;
-      transition: transform 0.3s ease;
+        background: #151518;
+        border-radius: 12px;
+        overflow: hidden;
+        cursor: pointer;
+        transition: .2s;
+        border: 1px solid #2b2b2d;
     }
     .card:hover {
-      transform: scale(1.05);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.7);
+        transform: translateY(-5px);
+        box-shadow: 0 0 15px red;
     }
-    .card:hover img {
-      transform: scale(1.1);
+
+    .card img {
+        width: 100%;
+        display: block;
     }
-    .card .info {
-      padding: 10px;
-      text-align: center;
+
+    .card-title {
+        padding: 15px;
+        font-size: 18px;
+        text-align: center;
     }
+
+    /* PAGE WINDOW */
+    .gamePage {
+        display: none;
+        padding: 30px;
+    }
+
+    .big-img {
+        width: 500px;
+        border-radius: 15px;
+        border: 2px solid red;
+    }
+
+    .price-box {
+        margin-top: 20px;
+        background: #16161a;
+        padding: 20px;
+        border-radius: 12px;
+        width: 300px;
+    }
+
+    .price-btn {
+        width: 100%;
+        background: #2b2b2d;
+        color: white;
+        padding: 12px;
+        margin-top: 8px;
+        border-radius: 8px;
+        cursor: pointer;
+        border: 1px solid #3a3a3d;
+        font-size: 16px;
+    }
+    .price-btn:hover {
+        background: #3b3b3d;
+    }
+
+    .buy {
+        margin-top: 20px;
+        padding: 14px;
+        width: 100%;
+        background: #d41625;
+        border-radius: 10px;
+        cursor: pointer;
+        border: none;
+        font-size: 18px;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+    .buy:hover {
+        background: #ff2035;
+        transform: scale(1.05);
+    }
+
+    /* FEATURES */
     .features {
-      display: flex;
-      justify-content: center;
-      gap: 15px;
-      padding: 20px 0;
+        margin-top: 50px;
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
     }
     .feature {
-      padding: 5px 10px;
-      background: #333;
-      border-radius: 4px;
-      font-size: 12px;
+        background: #151518;
+        padding: 20px 25px;
+        border-radius: 14px;
+        border: 1px solid #2d2d2f;
+        font-size: 18px;
     }
-    /* Стили для detail view */
-    .detail {
-      display: none;
-      padding: 20px;
-      color: #eee;
-    }
-    .detail.active {
-      display: block;
-    }
-    .detail img {
-      max-width: 100%;
-      border-radius: 8px;
-    }
-    .detail .buy-btn {
-      display: inline-block;
-      margin-top: 15px;
-      padding: 10px 20px;
-      background: #ff2e63;
-      color: #fff;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-    .back-btn {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 5px 10px;
-      background: #444;
-      color: #ccc;
-      text-decoration: none;
-      border-radius: 4px;
-    }
-  </style>
+</style>
 </head>
+
 <body>
 
-  <div class="cards" id="cards">
-    <!-- Пример карточки 1 -->
-    <div class="card" data-game="game1" data-title="Game One" data-img="https://via.placeholder.com/600x400" data-price7="10" data-price30="25" data-price365="80">
-      <img src="https://via.placeholder.com/600x400" alt="">
-      <div class="info">
-        <h3>Game One</h3>
-      </div>
+<!-- GRID (Main Page) -->
+<div id="mainPage" class="grid">
+    <div class="card" onclick="openGame('bob')">
+        <img src="https://i.ibb.co/4fyP0Tj/bob.png">
+        <div class="card-title">Beasts Of Bermuda</div>
     </div>
-    <!-- Можно добавить больше карточек -->
-  </div>
 
-  <div class="detail" id="detail">
-    <h2 id="detail-title"></h2>
-    <img id="detail-img" src="" alt="">
-    <div id="price-options">
-      <p>7 дней — <span id="price7"></span>$</p>
-      <p>30 дней — <span id="price30"></span>$</p>
-      <p>365 дней — <span id="price365"></span>$</p>
+    <div class="card" onclick="openGame('isle')">
+        <img src="https://i.ibb.co/9Ndk32q/theisle.png">
+        <div class="card-title">The Isle</div>
     </div>
-    <a href="https://discord.gg/yourfake" target="_blank" class="buy-btn">Купить</a>
-    <br>
-    <a href="#" class="back-btn" id="back-btn">Назад</a>
-  </div>
+</div>
 
-  <script>
-    document.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('click', () => {
-        const detail = document.getElementById('detail');
-        document.getElementById('detail-title').innerText = card.dataset.title;
-        document.getElementById('detail-img').src = card.dataset.img;
-        document.getElementById('price7').innerText = card.dataset.price7;
-        document.getElementById('price30').innerText = card.dataset.price30;
-        document.getElementById('price365').innerText = card.dataset.price365;
-        document.getElementById('cards').style.display = 'none';
-        detail.classList.add('active');
-      });
-    });
-    document.getElementById('back-btn').addEventListener('click', e => {
-      e.preventDefault();
-      document.getElementById('cards').style.display = '';
-      document.getElementById('detail').classList.remove('active');
-    });
-  </script>
+<!-- GAME PAGE -->
+<div id="gamePage" class="gamePage">
+    <button onclick="back()" style="padding:10px 20px; margin-bottom:20px;">← Back</button>
+
+    <div style="display:flex; gap:40px;">
+        <img id="gameImg" class="big-img">
+        
+        <div class="price-box">
+            <h2 id="gameTitle"></h2>
+            <button class="price-btn">$35.99 / 7 Days</button>
+            <button class="price-btn">$60.99 / 30 Days</button>
+            <button class="price-btn">$325.99 / 365 Days</button>
+
+            <button class="buy" onclick="buy()">Buy Now</button>
+        </div>
+    </div>
+
+    <div class="features">
+        <div class="feature">🛡 Undetected</div>
+        <div class="feature">⚡ Instant Support</div>
+        <div class="feature">🎨 Stylish GUI</div>
+        <div class="feature">💸 Best Prices</div>
+    </div>
+</div>
+
+<script>
+let games = {
+    bob: {
+        title: "Beasts Of Bermuda",
+        img: "https://i.ibb.co/4fyP0Tj/bob.png"
+    },
+    isle: {
+        title: "The Isle",
+        img: "https://i.ibb.co/9Ndk32q/theisle.png"
+    }
+};
+
+function openGame(id) {
+    document.getElementById("mainPage").style.display = "none";
+    document.getElementById("gamePage").style.display = "block";
+
+    document.getElementById("gameImg").src = games[id].img;
+    document.getElementById("gameTitle").innerText = games[id].title;
+}
+
+function back() {
+    document.getElementById("mainPage").style.display = "grid";
+    document.getElementById("gamePage").style.display = "none";
+}
+
+function buy() {
+    window.open("https://1", "_blank"); /* твоя фейк-ссылка */
+}
+</script>
 
 </body>
 </html>
